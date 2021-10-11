@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">launcher</string>
+    <string name="search_text">جستجو</string>
+    <string name="error_connection">خطا اتصال به اینترنت</string>
+    <string name="generic_retry">تلاش مجدد</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

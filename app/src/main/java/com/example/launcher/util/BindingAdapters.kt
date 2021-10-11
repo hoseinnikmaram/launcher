@@ -1,3 +1,5 @@
+package com.example.launcher.util
+
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
@@ -5,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.example.launcher.R
 
 @BindingAdapter("imageUrl")
-fun imageView(view: ImageView, url: String?) {
+fun imageView(view: ImageView, url: Any?) {
     Glide.with(view)
         .load(url)
         .centerCrop()
@@ -20,15 +22,6 @@ fun View.isVisible(isShow: Boolean) {
         this.visibility = View.VISIBLE
     } else {
         this.visibility = View.GONE
-    }
-}
-
-@BindingAdapter("isVisInvis")
-fun View.isVisInvis(isShow: Boolean) {
-    if (isShow) {
-        this.visibility = View.VISIBLE
-    } else {
-        this.visibility = View.INVISIBLE
     }
 }
 

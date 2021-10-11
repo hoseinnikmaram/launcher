@@ -7,5 +7,20 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.launcher.ui.MainFragment.MainFragment"
-        android:label="MainFragment" />
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_packageListFragment"
+            app:destination="@id/packageListFragment"
+            app:enterAnim="@anim/slide_in_up"
+            app:exitAnim="@anim/slide_out_up"
+            app:popEnterAnim="@anim/slide_in_up"
+            app:popExitAnim="@anim/slide_out_up"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/packageListFragment"
+        android:name="com.example.launcher.ui.PackageListFragment"
+        android:label="PackageListFragment" >
+
+    </fragment>
 </navigation>

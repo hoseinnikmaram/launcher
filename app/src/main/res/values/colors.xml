@@ -9,7 +9,7 @@
         <color name="white">#FFFFFFFF</color>
         <color name="transparent">#00000000</color>
 
-        <color name="primary">#EFEEEE</color>
+        <color name="primary">#FF000000</color>
 
         <color name="grey_3">#f7f7f7</color>
         <color name="grey_5">#f2f2f2</color>
@@ -19,4 +19,5 @@
         <color name="grey_60">#666666</color>
         <color name="grey_80">#37474F</color>
         <color name="grey_90">#263238</color>
+    <color name="gray">#9E9E9E</color>
 </resources>

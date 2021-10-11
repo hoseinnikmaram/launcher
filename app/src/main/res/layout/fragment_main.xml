@@ -5,50 +5,87 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
-        android:layoutDirection="ltr"
+        android:layoutDirection="rtl"
+        android:background="@drawable/background"
         android:layout_height="match_parent">
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+
+        <LinearLayout
+            android:id="@+id/linear"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:background="@drawable/rounded_edittext_states"
+            android:layout_height="50dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginRight="30dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:elevation="8dp"
+            app:layout_constraintStart_toStartOf="parent">
 
-            app:layout_constraintTop_toTopOf="parent">
+            <EditText
+                android:id="@+id/edit_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_margin="4dp"
+                android:background="@color/white"
+                android:hint="@string/search_text"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxWidth="500dp"
+                android:maxLength="11"
+                android:maxLines="1" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="italic"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:gravity="center"
+            <ImageButton
+                android:id="@+id/ic_search"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="fitXY"
+                android:elevation="5dp"
+                android:background="@color/transparent"
+                app:srcCompat="@drawable/ic_search"
+                app:tint="@color/grey_80"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </LinearLayout>
 
-                    />
-
-            </androidx.appcompat.widget.Toolbar>
-
-        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/grey_3"
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/linear"
+            app:layout_constraintVertical_bias="0.0"
+            app:spanCount="4" />
 
-
-
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            android:elevation="5dp"
+            android:background="@color/transparent"
+            app:srcCompat="@drawable/ic_arrow_up"
+            app:tint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
