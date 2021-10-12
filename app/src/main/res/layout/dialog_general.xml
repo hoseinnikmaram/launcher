@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="icon"
+            type="int" />
+
+        <variable
+            name="subtitle_2_icon"
+            type="int" />
+
+        <variable
+            name="subtitle_1_icon"
+            type="int" />
+
+        <variable
+            name="isNeedDismiss"
+            type="boolean" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/dialog_bg"
+        android:layoutDirection="rtl"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="40dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:visibility="visible"
+                app:tint="@color/grey_80"
+                android:src="@drawable/ic_warning_white_24dp"
+                />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textDirection="rtl"
+            android:textStyle="bold"
+            tools:text="title" />
+
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            tools:text="description" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:padding="10dp"
+            android:paddingBottom="10dp"
+            android:weightSum="2">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_ok"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="18dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_button_primary"
+                android:elevation="5dp"
+                android:text="@string/ok"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                tools:text="ok" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/shape_button_light_gray"
+                android:elevation="0dp"
+                android:stateListAnimator="@null"
+                android:text="@string/reject"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

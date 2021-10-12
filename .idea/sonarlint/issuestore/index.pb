@@ -1,8 +1,6 @@
 
 f
 6app/src/main/java/com/example/launcher/di/Providers.kt,1/d/1daef4f39f9376b2195cc568a1a0ed45f6f7122c
-i
-9app/src/main/java/com/example/launcher/BaseApplication.kt,4/2/424fb02e02f04268bf8bb3e607bbfe88f0207f3a
 e
 5app/src/main/java/com/example/launcher/util/Status.kt,3/8/38754dc531bc0272e5c528cfef766bfab3ecf962
 d
@@ -17,3 +15,23 @@ X
 (gradle/wrapper/gradle-wrapper.properties,f/b/fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
 g
 7app/src/main/java/com/example/launcher/util/Resource.kt,7/3/73b2eb56d1407bfdbc9f30ae62b10ab1da85018c
+P
+ app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
+\
+,.idea/inspectionProfiles/Project_Default.xml,4/9/496a238a6afa168dbaf6efd37bb459331589579c
+<
+build.gradle,f/0/f07866736216be0ee2aba49e392191aeae700a35
+l
+<app/src/main/java/com/example/launcher/model/PackageModel.kt,f/d/fddf928e032551a6158f71a397a5dd2ce6ab2fa0
+x
+Happ/src/main/java/com/example/launcher/ui/MainFragment/PackageAdapter.kt,4/f/4f6d50f4a70bfafd66f3e7834774b118dc3e8e84
+t
+Dapp/src/main/java/com/example/launcher/ui/WebView/WebViewFragment.kt,a/b/ab6dcb79c643984a61541620b4be21bee3a0dc17
+n
+>app/src/main/java/com/example/launcher/util/BindingAdapters.kt,4/9/49d410da4f91faa835166bc854f7a20970e3e407
+s
+Capp/src/main/java/com/example/launcher/util/OnSwipeTouchListener.kt,2/4/24d66e9fd8671b45f662bd0f372b39399afe901d
+e
+5app/src/main/java/com/example/launcher/util/uiUtil.kt,a/c/acdfee79291b5facb18d8b3fc1a1a3ce315263c6
+@
+app/build.gradle,f/4/f4a01d6a4fcb971362ec00a83903fd3902f52164

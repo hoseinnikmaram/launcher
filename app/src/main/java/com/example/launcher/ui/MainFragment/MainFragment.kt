@@ -1,17 +1,15 @@
 package com.example.launcher.ui.MainFragment
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.launcher.R
 import com.example.launcher.databinding.FragmentMainBinding
 import com.example.launcher.model.PackageModel
 import com.example.launcher.util.*
@@ -45,8 +43,32 @@ class MainFragment : Fragment() {
                 }
             })
 
+                val isShowDialog = defaultCache()[KEY_IS_SHOW_DIALOG,false]
+                if (isShowDialog == false){
+                    defaultCache()[KEY_IS_SHOW_DIALOG] = true
+                    showDialog()
+                }
             }
         return binding.root
+    }
+
+    private fun showDialog() {
+        if (AssistantUtil.getCurrentAssistWithReflection(requireContext()) != KEY_PACKAGE_NAME_ZAREBIN) {
+            requireActivity().showDialog(
+                getString(R.string.assistant_title),
+                getString(R.string.assistant_description),
+                positiveCallback = {
+                    startActivity(Intent(Settings.ACTION_VOICE_INPUT_SETTINGS))
+                })
+        }
+        if (checkBrowser(activity?.packageManager).toString() != KEY_PACKAGE_NAME_ZAREBIN) {
+            requireActivity().showDialog(
+                getString(R.string.browser_title),
+                getString(R.string.browser_description),
+                positiveCallback = {
+                    startActivity(Intent(Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS))
+                })
+        }
     }
 
     private fun actionSearch(textSearch: String) {
