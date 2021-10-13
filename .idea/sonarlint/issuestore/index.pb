@@ -15,8 +15,6 @@ X
 (gradle/wrapper/gradle-wrapper.properties,f/b/fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
 g
 7app/src/main/java/com/example/launcher/util/Resource.kt,7/3/73b2eb56d1407bfdbc9f30ae62b10ab1da85018c
-P
- app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
 \
 ,.idea/inspectionProfiles/Project_Default.xml,4/9/496a238a6afa168dbaf6efd37bb459331589579c
 <
@@ -35,3 +33,13 @@ e
 5app/src/main/java/com/example/launcher/util/uiUtil.kt,a/c/acdfee79291b5facb18d8b3fc1a1a3ce315263c6
 @
 app/build.gradle,f/4/f4a01d6a4fcb971362ec00a83903fd3902f52164
+i
+9app/src/main/java/com/example/launcher/util/ThreadUtil.kt,6/7/6757ff066023c8f2d78679f9620f3384737c0e58
+o
+?app/src/main/java/com/example/launcher/network/ApiRepository.kt,0/7/079bf6b5a5552bd529e42f49315eb26698291d02
+p
+@app/src/main/java/com/example/launcher/ui/PackageListFragment.kt,0/f/0f8b9bab812cff9d34ed0545f497ac60455b0949
+l
+<app/src/main/java/com/example/launcher/ApplicationContext.kt,4/b/4bf9a46d1d2a096172bef6d9515491ac3d9df7c5
+i
+9app/src/main/java/com/example/launcher/BaseApplication.kt,4/2/424fb02e02f04268bf8bb3e607bbfe88f0207f3a
