@@ -83,14 +83,14 @@ class MainFragment : Fragment() {
     private fun getInstalledPackage(): List<PackageModel> {
         val mainIntent = Intent(Intent.ACTION_MAIN, null)
         mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)
-        val pkgAppsList = requireActivity().packageManager.queryIntentActivities(mainIntent, 0).subList(0,8)
+        val pkgAppsList = requireActivity().packageManager.queryIntentActivities(mainIntent, 0)
         return pkgAppsList.map {
             PackageModel(
                 icon = it.loadIcon(requireActivity().packageManager),
                 label = it.loadLabel(requireActivity().packageManager).toString(),
                 packageName = it.activityInfo.packageName
             )
-        }
+        }.subList(0,8)
     }
     private fun directOpenInstalledApp(packageName: String) {
         val pm = activity?.packageManager

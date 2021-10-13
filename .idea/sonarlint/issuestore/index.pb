@@ -7,8 +7,6 @@ d
 4app/src/main/java/com/example/launcher/di/Modules.kt,3/a/3a52ddf3ab5afef176d89689426e72e04cc8945a
 l
 <app/src/main/java/com/example/launcher/network/ApiService.kt,8/d/8d7a139cbb3cc1a1909d581f1d5a081ecf0e64fd
-i
-9app/src/main/java/com/example/launcher/ui/MainActivity.kt,b/5/b5bb5c010fa1ce996d2295cc148cc29dba312a62
 w
 Gapp/src/main/java/com/example/launcher/ui/MainFragment/MainViewModel.kt,1/6/167ce0785fbb05b5cfa4dfda9a08426338ec822a
 X
@@ -43,3 +41,5 @@ l
 <app/src/main/java/com/example/launcher/ApplicationContext.kt,4/b/4bf9a46d1d2a096172bef6d9515491ac3d9df7c5
 i
 9app/src/main/java/com/example/launcher/BaseApplication.kt,4/2/424fb02e02f04268bf8bb3e607bbfe88f0207f3a
+P
+ app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
