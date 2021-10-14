@@ -8,8 +8,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import com.example.launcher.R
 import com.example.launcher.ui.MainFragment.MainFragment
+import com.example.launcher.ui.MainFragment.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
+    private val mainViewModel: MainViewModel by viewModel()
     private val currentNavigatorFragment = MutableLiveData<Fragment?>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

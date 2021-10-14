@@ -1,14 +1,8 @@
 
-f
-6app/src/main/java/com/example/launcher/di/Providers.kt,1/d/1daef4f39f9376b2195cc568a1a0ed45f6f7122c
 e
 5app/src/main/java/com/example/launcher/util/Status.kt,3/8/38754dc531bc0272e5c528cfef766bfab3ecf962
-d
-4app/src/main/java/com/example/launcher/di/Modules.kt,3/a/3a52ddf3ab5afef176d89689426e72e04cc8945a
 l
 <app/src/main/java/com/example/launcher/network/ApiService.kt,8/d/8d7a139cbb3cc1a1909d581f1d5a081ecf0e64fd
-w
-Gapp/src/main/java/com/example/launcher/ui/MainFragment/MainViewModel.kt,1/6/167ce0785fbb05b5cfa4dfda9a08426338ec822a
 X
 (gradle/wrapper/gradle-wrapper.properties,f/b/fbe448ebfc3eb2d4e308f6b8b043666f5b57235e
 g
@@ -21,8 +15,6 @@ l
 <app/src/main/java/com/example/launcher/model/PackageModel.kt,f/d/fddf928e032551a6158f71a397a5dd2ce6ab2fa0
 x
 Happ/src/main/java/com/example/launcher/ui/MainFragment/PackageAdapter.kt,4/f/4f6d50f4a70bfafd66f3e7834774b118dc3e8e84
-t
-Dapp/src/main/java/com/example/launcher/ui/WebView/WebViewFragment.kt,a/b/ab6dcb79c643984a61541620b4be21bee3a0dc17
 n
 >app/src/main/java/com/example/launcher/util/BindingAdapters.kt,4/9/49d410da4f91faa835166bc854f7a20970e3e407
 s
@@ -33,13 +25,13 @@ e
 app/build.gradle,f/4/f4a01d6a4fcb971362ec00a83903fd3902f52164
 i
 9app/src/main/java/com/example/launcher/util/ThreadUtil.kt,6/7/6757ff066023c8f2d78679f9620f3384737c0e58
-o
-?app/src/main/java/com/example/launcher/network/ApiRepository.kt,0/7/079bf6b5a5552bd529e42f49315eb26698291d02
-p
-@app/src/main/java/com/example/launcher/ui/PackageListFragment.kt,0/f/0f8b9bab812cff9d34ed0545f497ac60455b0949
 l
 <app/src/main/java/com/example/launcher/ApplicationContext.kt,4/b/4bf9a46d1d2a096172bef6d9515491ac3d9df7c5
-i
-9app/src/main/java/com/example/launcher/BaseApplication.kt,4/2/424fb02e02f04268bf8bb3e607bbfe88f0207f3a
 P
  app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
+i
+9app/src/main/java/com/example/launcher/util/DialogUtil.kt,4/c/4c59580804827c8a83978313ec46026d0ba0d6f6
+o
+?app/src/main/java/com/example/launcher/util/CheckBrowserUtil.kt,2/8/2859bcde0e6f165518f6df00f8b57931e0449dd5
+n
+>app/src/main/java/com/example/launcher/util/AssistantUtil.java,2/2/22189f7103f8700ea333b7819f1ec533f312a947

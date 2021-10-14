@@ -15,7 +15,7 @@ val applicationModule= module {
 val viewModelsModule= module {
 
     viewModel {
-        MainViewModel(get())
+        MainViewModel()
     }
 }
 

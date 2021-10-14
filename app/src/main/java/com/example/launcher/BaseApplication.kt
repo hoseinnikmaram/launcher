@@ -10,7 +10,6 @@ class BaseApplication :Application(){
 
     override fun onCreate() {
         super.onCreate()
-        ApplicationContext.initialize(this)
         startKoin{
             androidContext(this@BaseApplication)
             modules(applicationModule,viewModelsModule)

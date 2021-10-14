@@ -1,15 +1,15 @@
 package com.example.launcher.util
 
+import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import com.example.launcher.ApplicationContext
 
 
 const val KEY_IS_SHOW_DIALOG = "KEY_IS_SHOW_DIALOG"
 const val KEY_PACKAGE_NAME_ZAREBIN = "com.zarebin.browser"
-
-fun defaultCache(): SharedPreferences
-        = ApplicationContext.context.getSharedPreferences("defaultCache",MODE_PRIVATE)
+const val URL_ZAREBIN = "https://zarebin.ir/search?q="
+fun defaultCache(context: Context): SharedPreferences
+        = context.getSharedPreferences("defaultCache",MODE_PRIVATE)
 
 private inline fun SharedPreferences.edit(operation: (SharedPreferences.Editor) -> Unit) {
     val editor = this.edit()
