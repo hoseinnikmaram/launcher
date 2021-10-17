@@ -6,53 +6,72 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.launcher.databinding.FragmentMainBinding
-import com.example.launcher.util.*
+import com.example.launcher.model.PackageModel
+import com.example.launcher.util.OnSwipeTouchListener
+import com.example.launcher.util.URL_ZAREBIN
+import com.example.launcher.util.directOpenInstalledApp
+import com.example.launcher.util.hideKeyboardFrom
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class MainFragment : Fragment() {
     private val mainViewModel by sharedViewModel<MainViewModel>()
-    lateinit var binding: FragmentMainBinding
+    private val packages: MutableState<List<PackageModel>> = mutableStateOf(ArrayList())
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        if (!this::binding.isInitialized) {
-            binding = FragmentMainBinding.inflate(inflater, container, false)
-            binding.editSearch.apply {
-                setOnEnterListener {
-                    hideKeyboardFrom(requireContext(), requireView())
-                    actionSearch(text.toString())
+        val view = ComposeView(requireContext()).apply {
+            mainViewModel.getInstalledPackage(requireActivity())
+            setContent {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Spacer(modifier = Modifier.height(80.dp))
+                    SearchEditText(requireContext()) {
+                        hideKeyboardFrom(requireContext(), requireView())
+                        actionSearch(it)
+                    }
+                    Spacer(modifier = Modifier.height(50.dp))
+                    packageList(packages.value) { packageName ->
+                        directOpenInstalledApp(
+                            packageName = packageName,
+                            packageManager = activity?.packageManager,
+                            context = requireContext()
+                        )
+                    }
                 }
-            }
-            binding.icSearch.setOnClickListener { actionSearch(binding.editSearch.text.toString()) }
-            mainViewModel.getInstalledPackage(requireActivity()).observe(viewLifecycleOwner) {
-                val subListSize = if (it.size < 8)
-                    it.size
-                 else
-                    8
-                binding.recyclerView.adapter = PackageAdapter(it.subList(0, subListSize)) { packageName ->
-                    directOpenInstalledApp(
-                        packageName = packageName,
-                        packageManager = activity?.packageManager,
-                        context = requireContext()
-                    )
-                }
-                binding.isVisibleProgressBar = false
-            }
-            binding.mainLayout.setOnTouchListener(object : OnSwipeTouchListener(requireActivity()) {
-                override fun onSwipeTop() {
-                    findNavController().navigate(MainFragmentDirections.actionMainFragmentToPackageListFragment())
 
-                }
-            })
-
-            mainViewModel.isShowDialog(requireActivity())
+            }
         }
-        return binding.root
+        view.setOnTouchListener(object : OnSwipeTouchListener(requireActivity()) {
+            override fun onSwipeTop() {
+                findNavController().navigate(MainFragmentDirections.actionMainFragmentToPackageListFragment())
+
+            }
+        })
+        mainViewModel.getInstalledPackage(requireActivity()).observe(viewLifecycleOwner) {
+            val subListSize = if (it.size < 8)
+                it.size
+            else
+                8
+            packages.value = it.subList(0, subListSize)
+        }
+        mainViewModel.isShowDialog(requireActivity())
+        return view
     }
 
 
