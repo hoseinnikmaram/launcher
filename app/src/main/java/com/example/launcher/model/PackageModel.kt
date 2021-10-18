@@ -1,9 +1,21 @@
 package com.example.launcher.model
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.RawValue
 
-class PackageModel(val icon: Drawable, val label: String, val packageName:String)
+@Parcelize
+@Entity(tableName = "package_table")
+class PackageModel(
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    val id: Int = 0,
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    val icon: ByteArray,
+    @ColumnInfo(name = "label")
+    val label: String,
+    @ColumnInfo(name = "packageName")
+    val packageName: String
+) : Parcelable

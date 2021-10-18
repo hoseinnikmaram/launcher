@@ -3,29 +3,55 @@ package com.example.launcher.ui.MainFragment
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.ResolveInfo
+import android.graphics.Bitmap.CompressFormat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.*
 import com.example.launcher.model.PackageModel
+import com.example.launcher.repository.room.Database
+import com.example.launcher.ui.MainActivity
 import com.example.launcher.util.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.io.ByteArrayOutputStream
 
-class MainViewModel : ViewModel() {
 
-    fun getInstalledPackage(activity: Activity): LiveData<List<PackageModel>> =
+class MainViewModel(val database: Database) : ViewModel() {
+
+    fun getInstalledPackage(): LiveData<List<PackageModel>> =
         liveData(Dispatchers.IO) {
+            delay(100L)
+            val packages = database.getDao().getPackages()
+            emit(packages)
+        }
+
+    fun saveToDataBase(activity: Activity) {
+        viewModelScope.launch(Dispatchers.IO) {
             val packageModel = mutableListOf<PackageModel>()
             val mainIntent = Intent(Intent.ACTION_MAIN, null)
             mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)
             val pkgAppsList = activity.packageManager.queryIntentActivities(mainIntent, 0)
             pkgAppsList.forEach {
+                val bitmap = it.loadIcon(activity.packageManager).toBitmap()
+                val blob = ByteArrayOutputStream()
+                bitmap.compress(CompressFormat.PNG, 0, blob)
                 if (!isVpnApplication(it, activity))
-                    packageModel.add(PackageModel(
-                        icon = it.loadIcon(activity.packageManager),
-                        label = it.loadLabel(activity.packageManager).toString(),
-                        packageName = it.activityInfo.packageName
-                    ))
+                    packageModel.add(
+                        PackageModel(
+                            icon = blob.toByteArray(),
+                            label = it.loadLabel(activity.packageManager).toString(),
+                            packageName = it.activityInfo.packageName
+                        )
+                    )
             }
-            emit(packageModel)
+            val database = database.getDao()
+            if (database.getPackages().size != packageModel.size) {
+                database.deletePackages()
+                database.insertPackage(packageModel)
+            }
+
         }
+    }
 
     fun isVpnApplication(resolveInfo: ResolveInfo, activity: Activity): Boolean {
         return resolveInfo.activityInfo.packageName.lowercase()

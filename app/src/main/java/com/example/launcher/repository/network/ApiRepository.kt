@@ -1,4 +1,4 @@
-package com.example.launcher.network
+package com.example.launcher.repository.network
 import com.example.launcher.model.DataModel
 
 class ApiRepository(private val apiService: ApiService){

@@ -3,7 +3,8 @@ buildscript {
     apply from: './dependencies.gradle'
     repositories {
         google()
-        maven { url 'https://jitpack.io' }
+        maven { url "https://jitpack.io" }
+        maven {url "https://clojars.org/repo/"}
         mavenCentral()
     }
     dependencies {
@@ -20,7 +21,8 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://jitpack.io' }
+        maven { url "https://jitpack.io" }
+        maven {url "https://clojars.org/repo/"}
         jcenter() // Warning: this repository is going to shut down soon
     }
 }

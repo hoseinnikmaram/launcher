@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/packageListFragment"
-        android:name="com.example.launcher.ui.PackageListFragment"
+        android:name="com.example.launcher.ui.PackageListFragment.PackageListFragment"
         android:label="PackageListFragment" >
 
     </fragment>

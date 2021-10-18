@@ -1,5 +1,6 @@
 package com.example.launcher.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
@@ -17,7 +18,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainViewModel.getInstalledPackage(this)
+        mainViewModel.isShowDialog(this)
+        mainViewModel.saveToDataBase(this)
         val fragmentContainer = supportFragmentManager.findFragmentById(R.id.fragmentContainerView2)!!
         val fragmentContainerManager = fragmentContainer.childFragmentManager
 

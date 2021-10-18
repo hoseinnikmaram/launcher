@@ -1,6 +1,8 @@
 package com.example.launcher.ui.MainFragment
 
+import android.R.attr.bitmap
 import android.content.Context
+import android.graphics.BitmapFactory
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -16,18 +18,20 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import coil.ImageLoader
+import coil.request.ImageRequest
 import com.example.launcher.R
 import com.example.launcher.model.PackageModel
 import com.skydoves.landscapist.coil.CoilImage
+
 
 @Composable
 fun SearchEditText(context: Context, onClick: (String) -> Unit) {
@@ -86,14 +90,21 @@ fun packageItem(packageModel: PackageModel, onClick: (String) -> Unit) {
             .clickable(onClick = { onClick(packageModel.packageName) }),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val options = BitmapFactory.Options()
+        val bitmap = BitmapFactory.decodeByteArray(packageModel.icon, 0, packageModel.icon.size, options)
         CoilImage(
             modifier = Modifier
                 .width(60.dp)
                 .height(60.dp),
-            imageModel = packageModel.icon,
+            imageLoader = ImageLoader.Builder(LocalContext.current)
+                .availableMemoryPercentage(0.25)
+                .crossfade(true)
+                .build(),
+            imageRequest = ImageRequest.Builder(LocalContext.current)
+                .data(bitmap)
+                .crossfade(true)
+                .build(),
             contentScale = ContentScale.Crop,
-            placeHolder = ImageBitmap.imageResource(R.drawable.placeholder),
-            error = ImageBitmap.imageResource(R.drawable.placeholder)
         )
         Text(
             text = packageModel.label,

@@ -62,14 +62,13 @@ class MainFragment : Fragment() {
 
             }
         })
-        mainViewModel.getInstalledPackage(requireActivity()).observe(viewLifecycleOwner) {
+        mainViewModel.getInstalledPackage().observe(requireActivity()) {
             val subListSize = if (it.size < 8)
                 it.size
             else
                 8
             packages.value = it.subList(0, subListSize)
         }
-        mainViewModel.isShowDialog(requireActivity())
         return view
     }
 

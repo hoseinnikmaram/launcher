@@ -1,17 +1,20 @@
 package com.example.launcher.di
 
-import com.example.launcher.network.ApiService
-import com.ihsanbal.logging.Level
-import com.ihsanbal.logging.LoggingInterceptor
+import android.content.Context
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import com.example.launcher.repository.network.ApiService
+import com.example.launcher.repository.room.Database
+import com.example.launcher.ui.MainActivity
 import okhttp3.OkHttpClient
 import okhttp3.internal.platform.Platform
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-const val base_url=""
+const val base_url = ""
 
- fun provideRetrofit(httpClient: OkHttpClient): ApiService {
+fun provideRetrofit(httpClient: OkHttpClient): ApiService {
 
     return Retrofit.Builder()
         .baseUrl(base_url)
@@ -19,24 +22,22 @@ const val base_url=""
         .client(httpClient)
         .build()
         .create(ApiService::class.java)
-        }
+}
 
 
-    fun provideOkHttpClient(loggingInterceptor: LoggingInterceptor):OkHttpClient{
-        return OkHttpClient.Builder()
-            .connectTimeout(5,TimeUnit.SECONDS)
-            .readTimeout(5,TimeUnit.SECONDS)
-            .writeTimeout(5,TimeUnit.SECONDS)
-            .addInterceptor(loggingInterceptor)
-            .build()
-
-    }
-
-fun provideLoggingInterceptor(): LoggingInterceptor {
-
-    return LoggingInterceptor.Builder()
-        .setLevel(Level.BASIC)
-        .log(Platform.INFO)
-        .addHeader("version","1")
+fun provideOkHttpClient(): OkHttpClient {
+    return OkHttpClient.Builder()
+        .connectTimeout(5, TimeUnit.SECONDS)
+        .readTimeout(5, TimeUnit.SECONDS)
+        .writeTimeout(5, TimeUnit.SECONDS)
         .build()
+
+}
+
+fun provideRoomClient(context: Context): Database {
+    return Room.databaseBuilder(
+        context,
+        Database::class.java,
+        "launcher"
+    ).allowMainThreadQueries().fallbackToDestructiveMigration().build()
 }
