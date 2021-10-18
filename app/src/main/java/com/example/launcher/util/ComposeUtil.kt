@@ -27,7 +27,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.launcher.R
 import com.example.launcher.model.PackageModel
-import com.skydoves.landscapist.glide.GlideImage
+import com.skydoves.landscapist.coil.CoilImage
 
 @Composable
 fun SearchEditText(context: Context, onClick: (String) -> Unit) {
@@ -86,7 +86,7 @@ fun packageItem(packageModel: PackageModel, onClick: (String) -> Unit) {
             .clickable(onClick = { onClick(packageModel.packageName) }),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        GlideImage(
+        CoilImage(
             modifier = Modifier
                 .width(60.dp)
                 .height(60.dp),

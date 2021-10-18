@@ -34,7 +34,6 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view = ComposeView(requireContext()).apply {
-            mainViewModel.getInstalledPackage(requireActivity())
             setContent {
                 Column(
                     modifier = Modifier.padding(16.dp),

@@ -35,7 +35,6 @@ class PackageListFragment : Fragment() {
     ): View {
 
         val view = ComposeView(requireContext()).apply {
-            mainViewModel.getInstalledPackage(requireActivity())
             setContent {
                 Column(
                     modifier = Modifier.padding(horizontal = 8.dp),
