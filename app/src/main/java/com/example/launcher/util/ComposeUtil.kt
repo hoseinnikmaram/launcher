@@ -18,19 +18,21 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import coil.ImageLoader
-import coil.request.ImageRequest
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.launcher.R
 import com.example.launcher.model.PackageModel
-import com.skydoves.landscapist.coil.CoilImage
+import com.skydoves.landscapist.glide.GlideImage
 
 
 @Composable
@@ -80,6 +82,16 @@ fun SearchEditText(context: Context, onClick: (String) -> Unit) {
     )
 
 }
+@Composable
+fun showIcon(){
+    GlideImage(
+        modifier = Modifier
+            .width(40.dp)
+            .height(40.dp),
+        alignment = Alignment.BottomCenter,
+        imageModel = R.drawable.ic_arrow_up
+    )
+}
 
 @Composable
 fun packageItem(packageModel: PackageModel, onClick: (String) -> Unit) {
@@ -92,19 +104,17 @@ fun packageItem(packageModel: PackageModel, onClick: (String) -> Unit) {
     ) {
         val options = BitmapFactory.Options()
         val bitmap = BitmapFactory.decodeByteArray(packageModel.icon, 0, packageModel.icon.size, options)
-        CoilImage(
+        GlideImage(
             modifier = Modifier
                 .width(60.dp)
                 .height(60.dp),
-            imageLoader = ImageLoader.Builder(LocalContext.current)
-                .availableMemoryPercentage(0.25)
-                .crossfade(true)
-                .build(),
-            imageRequest = ImageRequest.Builder(LocalContext.current)
-                .data(bitmap)
-                .crossfade(true)
-                .build(),
+            imageModel = bitmap,
+            requestOptions = RequestOptions()
+                .override(256, 256)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .centerCrop(),
             contentScale = ContentScale.Crop,
+            placeHolder = ImageBitmap.imageResource(R.drawable.placeholder)
         )
         Text(
             text = packageModel.label,
@@ -123,7 +133,7 @@ fun packageItem(packageModel: PackageModel, onClick: (String) -> Unit) {
 @Composable
 fun packageList(packages: List<PackageModel>, onClick: (String) -> Unit) {
     if (packages.isNullOrEmpty()) {
-        CircularProgressIndicator(color = Color.Blue)
+        CircularProgressIndicator(color = Color.White)
     } else {
         LazyVerticalGrid(
             cells = GridCells.Fixed(4),

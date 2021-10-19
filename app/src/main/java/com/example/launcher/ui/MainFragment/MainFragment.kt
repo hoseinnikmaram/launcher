@@ -52,6 +52,8 @@ class MainFragment : Fragment() {
                             context = requireContext()
                         )
                     }
+                    Spacer(modifier = Modifier.weight(1.0f))
+                    showIcon()
                 }
 
             }
@@ -62,7 +64,7 @@ class MainFragment : Fragment() {
 
             }
         })
-        mainViewModel.getInstalledPackage().observe(requireActivity()) {
+        mainViewModel.responsePackageList.observe(viewLifecycleOwner) {
             val subListSize = if (it.size < 8)
                 it.size
             else

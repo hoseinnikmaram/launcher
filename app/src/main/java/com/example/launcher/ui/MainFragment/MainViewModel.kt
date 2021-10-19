@@ -17,13 +17,18 @@ import java.io.ByteArrayOutputStream
 
 
 class MainViewModel(val database: Database) : ViewModel() {
-
-    fun getInstalledPackage(): LiveData<List<PackageModel>> =
-        liveData(Dispatchers.IO) {
-            delay(100L)
+    private val _responsePackageList = MutableLiveData<List<PackageModel>>()
+    val responsePackageList: LiveData<List<PackageModel>>
+        get() = _responsePackageList
+    init {
+        getInstalledPackage()
+    }
+    fun getInstalledPackage() {
+        viewModelScope.launch(Dispatchers.IO) {
             val packages = database.getDao().getPackages()
-            emit(packages)
+            _responsePackageList.postValue(packages)
         }
+    }
 
     fun saveToDataBase(activity: Activity) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -48,6 +53,7 @@ class MainViewModel(val database: Database) : ViewModel() {
             if (database.getPackages().size != packageModel.size) {
                 database.deletePackages()
                 database.insertPackage(packageModel)
+                getInstalledPackage()
             }
 
         }

@@ -26,7 +26,6 @@ class PackageListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         val view = ComposeView(requireContext()).apply {
             setContent {
                 Column(
@@ -44,7 +43,7 @@ class PackageListFragment : Fragment() {
 
             }
         }
-        mainViewModel.getInstalledPackage()
+        mainViewModel.responsePackageList
             .observe(requireActivity()) { packages.value = it }
         return view
     }
