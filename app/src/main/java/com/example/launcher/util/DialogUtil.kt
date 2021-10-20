@@ -1,4 +1,4 @@
-package com.example.launcher.util
+package com.boomino.launcher.util
 
 import android.app.Dialog
 import android.content.Context
@@ -11,8 +11,8 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
-import com.example.launcher.R
-import com.example.launcher.databinding.DialogGeneralBinding
+import com.boomino.launcher.R
+import com.boomino.launcher.databinding.DialogGeneralBinding
 
 fun Context.showDialog(title: String? = null, description: String? = null, negativeCallback: () -> Unit = {}, positiveCallback: () -> Unit = {}): Dialog {
     val dialog = Dialog(this, R.style.Theme_Dialog)

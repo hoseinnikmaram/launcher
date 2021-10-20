@@ -1,4 +1,4 @@
-package com.example.launcher.util
+package com.boomino.launcher.util
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE

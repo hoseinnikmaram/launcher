@@ -1,4 +1,4 @@
-package com.example.launcher.ui.MainFragment
+package com.boomino.launcher.ui.MainFragment
 
 import android.R.attr.bitmap
 import android.content.Context
@@ -30,8 +30,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-import com.example.launcher.R
-import com.example.launcher.model.PackageModel
+import com.boomino.launcher.R
+import com.boomino.launcher.model.PackageModel
 import com.skydoves.landscapist.glide.GlideImage
 
 

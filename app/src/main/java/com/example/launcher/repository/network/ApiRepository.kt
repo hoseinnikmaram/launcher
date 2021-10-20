@@ -1,5 +1,5 @@
-package com.example.launcher.repository.network
-import com.example.launcher.model.DataModel
+package com.boomino.launcher.repository.network
+import com.boomino.launcher.model.DataModel
 
 class ApiRepository(private val apiService: ApiService){
 

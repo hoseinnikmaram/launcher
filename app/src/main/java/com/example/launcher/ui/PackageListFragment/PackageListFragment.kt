@@ -1,4 +1,4 @@
-package com.example.launcher.ui.PackageListFragment
+package com.boomino.launcher.ui.PackageListFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,10 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
-import com.example.launcher.model.PackageModel
-import com.example.launcher.ui.MainFragment.MainViewModel
-import com.example.launcher.ui.MainFragment.packageList
-import com.example.launcher.util.directOpenInstalledApp
+import com.boomino.launcher.model.PackageModel
+import com.boomino.launcher.ui.MainFragment.MainViewModel
+import com.boomino.launcher.ui.MainFragment.packageList
+import com.boomino.launcher.util.directOpenInstalledApp
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class PackageListFragment : Fragment() {

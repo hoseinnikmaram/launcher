@@ -1,4 +1,4 @@
-package com.example.launcher
+package com.boomino.launcher
 
 import org.junit.Test
 

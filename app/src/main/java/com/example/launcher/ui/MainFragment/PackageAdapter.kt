@@ -1,11 +1,11 @@
-package com.example.launcher.ui.MainFragment
+package com.boomino.launcher.ui.MainFragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AdapterListUpdateCallback
 import androidx.recyclerview.widget.RecyclerView
-import com.example.launcher.databinding.PackageItemBinding
-import com.example.launcher.model.PackageModel
+import com.boomino.launcher.databinding.PackageItemBinding
+import com.boomino.launcher.model.PackageModel
 
 
 class PackageAdapter(val data: List<PackageModel>,val callback: (String)->Unit) : RecyclerView.Adapter<PackageAdapter.viewHolder>() {

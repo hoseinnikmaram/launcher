@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.launcher.ui.MainFragment.MainFragment"
+        android:name="com.boomino.launcher.ui.MainFragment.MainFragment"
         android:label="MainFragment" >
         <action
             android:id="@+id/action_mainFragment_to_packageListFragment"
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/packageListFragment"
-        android:name="com.example.launcher.ui.PackageListFragment.PackageListFragment"
+        android:name="com.boomino.launcher.ui.PackageListFragment.PackageListFragment"
         android:label="PackageListFragment" >
 
     </fragment>

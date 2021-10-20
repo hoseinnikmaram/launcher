@@ -1,10 +1,10 @@
-package com.example.launcher.util
+package com.boomino.launcher.util
 
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.example.launcher.R
+import com.boomino.launcher.R
 
 @BindingAdapter("imageUrl")
 fun imageView(view: ImageView, url: Any?) {

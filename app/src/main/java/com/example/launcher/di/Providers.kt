@@ -1,11 +1,11 @@
-package com.example.launcher.di
+package com.boomino.launcher.di
 
 import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.launcher.repository.network.ApiService
-import com.example.launcher.repository.room.Database
-import com.example.launcher.ui.MainActivity
+import com.boomino.launcher.repository.network.ApiService
+import com.boomino.launcher.repository.room.Database
+import com.boomino.launcher.ui.MainActivity
 import okhttp3.OkHttpClient
 import okhttp3.internal.platform.Platform
 import retrofit2.Retrofit

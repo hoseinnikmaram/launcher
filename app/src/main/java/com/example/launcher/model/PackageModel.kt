@@ -1,4 +1,4 @@
-package com.example.launcher.model
+package com.boomino.launcher.model
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

@@ -1,4 +1,4 @@
-package com.example.launcher.ui.MainFragment
+package com.boomino.launcher.ui.MainFragment
 
 import android.app.Activity
 import android.content.Intent
@@ -6,10 +6,10 @@ import android.content.pm.ResolveInfo
 import android.graphics.Bitmap.CompressFormat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.*
-import com.example.launcher.model.PackageModel
-import com.example.launcher.repository.room.Database
-import com.example.launcher.ui.MainActivity
-import com.example.launcher.util.*
+import com.boomino.launcher.model.PackageModel
+import com.boomino.launcher.repository.room.Database
+import com.boomino.launcher.ui.MainActivity
+import com.boomino.launcher.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

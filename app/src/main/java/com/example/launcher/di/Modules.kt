@@ -1,7 +1,7 @@
-package com.example.launcher.di
+package com.boomino.launcher.di
 
-import com.example.launcher.repository.network.ApiRepository
-import com.example.launcher.ui.MainFragment.MainViewModel
+import com.boomino.launcher.repository.network.ApiRepository
+import com.boomino.launcher.ui.MainFragment.MainViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

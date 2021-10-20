@@ -1,4 +1,4 @@
-package com.example.launcher.ui.MainFragment
+package com.boomino.launcher.ui.MainFragment
 
 import android.content.Intent
 import android.net.Uri
@@ -18,11 +18,11 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.launcher.model.PackageModel
-import com.example.launcher.util.OnSwipeTouchListener
-import com.example.launcher.util.URL_ZAREBIN
-import com.example.launcher.util.directOpenInstalledApp
-import com.example.launcher.util.hideKeyboardFrom
+import com.boomino.launcher.model.PackageModel
+import com.boomino.launcher.util.OnSwipeTouchListener
+import com.boomino.launcher.util.URL_ZAREBIN
+import com.boomino.launcher.util.directOpenInstalledApp
+import com.boomino.launcher.util.hideKeyboardFrom
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 

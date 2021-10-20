@@ -1,4 +1,4 @@
-package com.example.launcher.util
+package com.boomino.launcher.util
 enum class Status {
     SUCCESS,
     ERROR,

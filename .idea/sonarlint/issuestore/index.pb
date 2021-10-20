@@ -35,3 +35,11 @@ j
 :app/src/main/java/com/example/launcher/util/CasheHelper.kt,d/4/d44e62087222ec2d092f7ea80deb248719a3b71e
 i
 9app/src/main/java/com/example/launcher/BaseApplication.kt,4/2/424fb02e02f04268bf8bb3e607bbfe88f0207f3a
+w
+Gapp/src/main/java/com/example/launcher/ui/MainFragment/MainViewModel.kt,1/6/167ce0785fbb05b5cfa4dfda9a08426338ec822a
+e
+5app/src/main/java/com/example/launcher/util/UiUtil.kt,a/8/a8406586ee25cfcf7f33b9ddfdf39675c7fae74a
+i
+9app/src/main/java/com/example/launcher/ui/MainActivity.kt,b/5/b5bb5c010fa1ce996d2295cc148cc29dba312a62
+v
+Fapp/src/main/java/com/example/launcher/ui/MainFragment/MainFragment.kt,b/6/b6ac988d7b19045a3a97118c3866edd97acfb15a

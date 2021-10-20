@@ -1,4 +1,4 @@
-package com.example.launcher.util
+package com.boomino.launcher.util
 
 
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {

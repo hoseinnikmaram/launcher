@@ -1,4 +1,4 @@
-package com.example.launcher.util
+package com.boomino.launcher.util
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -17,8 +17,8 @@ import android.widget.EditText
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.example.launcher.R
-import com.example.launcher.model.PackageModel
+import com.boomino.launcher.R
+import com.boomino.launcher.model.PackageModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

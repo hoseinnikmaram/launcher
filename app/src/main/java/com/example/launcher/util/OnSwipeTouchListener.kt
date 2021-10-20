@@ -1,4 +1,4 @@
-package com.example.launcher.util
+package com.boomino.launcher.util
 
 import android.content.Context
 import android.view.GestureDetector
@@ -26,16 +26,26 @@ open class OnSwipeTouchListener(ctx: Context) : View.OnTouchListener {
 
     private inner class GestureListener : GestureDetector.SimpleOnGestureListener() {
 
+        override fun onLongPress(e: MotionEvent?) {
+            onLongClick()
+            super.onLongPress(e)
+        }
 
         override fun onDown(e: MotionEvent): Boolean {
             return true
         }
+
         override fun onSingleTapUp(e: MotionEvent?): Boolean {
             onClick()
             return super.onSingleTapUp(e)
         }
 
-        override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+        override fun onFling(
+            e1: MotionEvent,
+            e2: MotionEvent,
+            velocityX: Float,
+            velocityY: Float
+        ): Boolean {
             var result = false
             try {
                 val diffY = e2.y - e1.y
@@ -74,5 +84,8 @@ open class OnSwipeTouchListener(ctx: Context) : View.OnTouchListener {
     open fun onSwipeTop() {}
 
     open fun onSwipeBottom() {}
+
     open fun onClick() {}
+
+    open fun onLongClick() {}
 }

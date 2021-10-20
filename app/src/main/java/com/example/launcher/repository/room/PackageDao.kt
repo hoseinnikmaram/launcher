@@ -1,10 +1,10 @@
-package com.example.launcher.repository.room
+package com.boomino.launcher.repository.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.launcher.model.PackageModel
+import com.boomino.launcher.model.PackageModel
 
 @Dao
 interface PackageDao {

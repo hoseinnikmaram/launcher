@@ -1,4 +1,4 @@
-package com.example.launcher.util
+package com.boomino.launcher.util
 
 import android.content.Intent
 import android.content.pm.PackageManager

@@ -1,4 +1,4 @@
-package com.example.launcher.ui
+package com.boomino.launcher.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,9 +7,9 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
-import com.example.launcher.R
-import com.example.launcher.ui.MainFragment.MainFragment
-import com.example.launcher.ui.MainFragment.MainViewModel
+import com.boomino.launcher.R
+import com.boomino.launcher.ui.MainFragment.MainFragment
+import com.boomino.launcher.ui.MainFragment.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
