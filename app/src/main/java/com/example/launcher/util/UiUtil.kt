@@ -9,6 +9,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.provider.Settings
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -78,3 +79,14 @@ fun View.animateToTop(body: ()-> Unit){
     }
 }
 
+fun openInformationApp(context: Context,packageName: String) {
+
+    try {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.data = Uri.parse("package:$packageName");
+        context.startActivity(intent);
+    } catch (e:Exception) {
+        val intent = Intent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS);
+        context.startActivity(intent);
+    }
+}

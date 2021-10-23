@@ -11,5 +11,7 @@
     <string name="assistant_description">برای تغییر همیار پیش فرض گوشی شما به همیار ذربین; به تنظیمات همیار بروید و ذربین را انتخاب کنید.</string>
     <string name="browser_title">تغییر مرورگر پیش فرض</string>
     <string name="browser_description">برای تغییر مرورگر پیش فرض گوشی شما به مرورگر ذربین; به تنظیمات مرورگر بروید و ذربین را انتخاب کنید.</string>
+    <string name="info">info</string>
+    <string name="info_text">اطلاعات</string>
 
 </resources>

@@ -10,8 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
@@ -19,16 +18,15 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.boomino.launcher.model.PackageModel
-import com.boomino.launcher.util.OnSwipeTouchListener
-import com.boomino.launcher.util.URL_ZAREBIN
-import com.boomino.launcher.util.directOpenInstalledApp
-import com.boomino.launcher.util.hideKeyboardFrom
+import com.boomino.launcher.util.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class MainFragment : Fragment() {
     private val mainViewModel by sharedViewModel<MainViewModel>()
-    private val packages: MutableState<List<PackageModel>> = mutableStateOf(ArrayList())
+    //private val packages: MutableState<List<PackageModel>> = mutableStateOf(ArrayList())
+    val packages = mutableStateListOf<PackageModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,12 +43,15 @@ class MainFragment : Fragment() {
                         actionSearch(it)
                     }
                     Spacer(modifier = Modifier.height(50.dp))
-                    packageList(packages.value) { packageName ->
+                    packageList(packages, onClick = { packageName ->
                         directOpenInstalledApp(
                             packageName = packageName,
                             packageManager = activity?.packageManager,
                             context = requireContext()
                         )
+                    }
+                    ) { packageName ->
+                        openInformationApp(requireContext(), packageName)
                     }
                     Spacer(modifier = Modifier.weight(1.0f))
                     showIcon()
@@ -63,13 +64,21 @@ class MainFragment : Fragment() {
                 findNavController().navigate(MainFragmentDirections.actionMainFragmentToPackageListFragment())
 
             }
+
+            override fun onLongClick() {
+                super.onLongClick()
+                startActivity(Intent(android.provider.Settings.ACTION_SETTINGS))
+
+            }
         })
+
         mainViewModel.responsePackageList.observe(viewLifecycleOwner) {
             val subListSize = if (it.size < 8)
                 it.size
             else
                 8
-            packages.value = it.subList(0, subListSize)
+            packages.clear()
+            packages.addAll(it.subList(0, subListSize))
         }
         return view
     }

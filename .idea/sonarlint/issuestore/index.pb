@@ -25,8 +25,6 @@ i
 9app/src/main/java/com/example/launcher/util/DialogUtil.kt,4/c/4c59580804827c8a83978313ec46026d0ba0d6f6
 o
 ?app/src/main/java/com/example/launcher/util/CheckBrowserUtil.kt,2/8/2859bcde0e6f165518f6df00f8b57931e0449dd5
-n
->app/src/main/java/com/example/launcher/util/AssistantUtil.java,2/2/22189f7103f8700ea333b7819f1ec533f312a947
 f
 6app/src/main/java/com/example/launcher/di/Providers.kt,1/d/1daef4f39f9376b2195cc568a1a0ed45f6f7122c
 d
@@ -41,5 +39,3 @@ e
 5app/src/main/java/com/example/launcher/util/UiUtil.kt,a/8/a8406586ee25cfcf7f33b9ddfdf39675c7fae74a
 i
 9app/src/main/java/com/example/launcher/ui/MainActivity.kt,b/5/b5bb5c010fa1ce996d2295cc148cc29dba312a62
-v
-Fapp/src/main/java/com/example/launcher/ui/MainFragment/MainFragment.kt,b/6/b6ac988d7b19045a3a97118c3866edd97acfb15a
