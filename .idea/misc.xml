@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.181" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.181" />
+        <entry key="app/src/main/res/drawable/ic_warning_white_24dp.xml" value="0.181" />
         <entry key="app/src/main/res/drawable/rounded_edittext.xml" value="0.1665" />
         <entry key="app/src/main/res/drawable/rounded_edittext_focused.xml" value="0.177" />
         <entry key="app/src/main/res/drawable/rounded_edittext_states.xml" value="0.177" />

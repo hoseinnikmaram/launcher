@@ -2,10 +2,7 @@ package com.boomino.launcher.ui.MainFragment
 
 import android.content.Context
 import android.graphics.BitmapFactory
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
@@ -14,6 +11,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
@@ -21,13 +19,16 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import coil.compose.rememberImagePainter
 import com.boomino.launcher.R
@@ -35,50 +36,72 @@ import com.boomino.launcher.model.PackageModel
 
 
 @Composable
-fun SearchEditText(context: Context, onClick: (String) -> Unit) {
+fun SearchEditText(colorText: Color = Color.Black,colorBackground: Color = Color.White,context: Context,onClear: () -> Unit={} ,onClick: (String) -> Unit) {
 
     var textFieldState by remember {
         mutableStateOf("")
     }
+    if (textFieldState.isEmpty()){
+        onClear()
+    }
+    Box(modifier = Modifier.padding(horizontal = 8.dp)){
+        OutlinedTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(0.dp)
+                .height(55.dp)
+                .defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
+            value = textFieldState,
+            onValueChange = {
+                textFieldState = it
+            },
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = colorBackground,
+                focusedIndicatorColor = colorBackground,
+                unfocusedIndicatorColor = colorBackground
+            ),
 
-    OutlinedTextField(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-        value = textFieldState,
-        onValueChange = {
-            textFieldState = it
-        },
-        colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White,
-            focusedIndicatorColor = Color.Gray
-        ),
-
-        trailingIcon = {
-            IconButton(
-                onClick = {
-                    onClick(textFieldState)
-                }) {
-                Icon(
-                    imageVector = Icons.Filled.Search,
-                    contentDescription = null,
-                    tint = Color.Gray
-                )
+            leadingIcon = {
+                IconButton(
+                    onClick = {
+                        onClick(textFieldState)
+                    }) {
+                    Icon(
+                        imageVector = Icons.Filled.Search,
+                        contentDescription = null,
+                        tint = Color.Gray
+                    )
+                }
+            },
+            trailingIcon={
+                if (textFieldState.isNotEmpty()){
+                    IconButton(
+                        onClick = {
+                            textFieldState = ""
+                        }) {
+                        Icon(
+                            imageVector = Icons.Filled.Close,
+                            contentDescription = null,
+                            tint = Color.Gray
+                        )
+                    }
+                }
+            },
+            shape = RoundedCornerShape(24.dp),
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+            keyboardActions = KeyboardActions(onSearch = { onClick(textFieldState) }),
+            textStyle = TextStyle(color = colorText, fontFamily = FontFamily(Font(R.font.iran_sans))),
+            maxLines = 1,
+            singleLine = true,
+            placeholder = {
+                Text(
+                    text = context.getString(R.string.search_text),
+                    color = Color.Gray,)
             }
-        },
-        shape = RoundedCornerShape(24.dp),
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-        keyboardActions = KeyboardActions(onSearch = { onClick(textFieldState) }),
-        textStyle = TextStyle(color = Color.Black, fontFamily = FontFamily(Font(R.font.iran_sans))),
-        maxLines = 1,
-        singleLine = true,
-        placeholder = {
-            Text(
-                text = context.getString(R.string.search_text),
-            )
-        }
 
-    )
+        )
+
+    }
 
 }
 
@@ -148,12 +171,24 @@ fun packageItem(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun packageList(
+    isSearch: Boolean = false,
     packages: SnapshotStateList<PackageModel>,
     onClick: (String) -> Unit,
     onLongClick: (String) -> Unit
 ) {
     var selectedIndex by remember { mutableStateOf(-1) }
-    if (packages.isNullOrEmpty()) {
+    if (isSearch && packages.isNullOrEmpty()){
+        Text(
+            text = "جستوجو بدون نتیجه است",
+            maxLines = 1,
+            style = TextStyle(
+                color = Color.White,
+                fontFamily = FontFamily(Font(R.font.iran_sans)),
+                textAlign = TextAlign.Center
+            )
+        )
+    }
+    else if (packages.isNullOrEmpty()) {
         CircularProgressIndicator(color = Color.White)
     } else {
         LazyVerticalGrid(

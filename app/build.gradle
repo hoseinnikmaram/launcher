@@ -20,12 +20,25 @@ android {
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        release {
+            storeFile file(System.getenv("KEYSTORE_FILE_PATH"))
+            storePassword System.getenv("KEYSTORE_PASSWORD")
+            keyAlias System.getenv("KEYSTORE_ALIAS")
+            keyPassword System.getenv("KEYSTORE_ALIAS_PASSWORD")
+        }
+    }
 
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//            signingConfigs signingConfigs.release
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+            pseudoLocalesEnabled false
+            zipAlignEnabled true
+            // signingConfigs signingConfigs.release
         }
     }
     compileOptions {
@@ -45,14 +58,7 @@ android {
         kotlinCompilerExtensionVersion versions.composeVersion
     }
 
-    signingConfigs {
-        release {
-            storeFile file(System.getenv("KEYSTORE_FILE_PATH"))
-            storePassword System.getenv("KEYSTORE_PASSWORD")
-            keyAlias System.getenv("KEYSTORE_ALIAS")
-            keyPassword System.getenv("KEYSTORE_ALIAS_PASSWORD")
-        }
-    }
+
 
 }
 
