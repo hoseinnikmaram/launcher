@@ -19,20 +19,64 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import coil.compose.rememberImagePainter
 import com.boomino.launcher.R
 import com.boomino.launcher.model.PackageModel
+import com.boomino.launcher.util.normalizePersianDigits
+import kotlinx.coroutines.delay
+import saman.zamani.persiandate.PersianDate
+import saman.zamani.persiandate.PersianDateFormat
+import java.text.SimpleDateFormat
+import java.util.*
+
+@Composable
+fun showTime(){
+    var currentTime by remember { mutableStateOf(SimpleDateFormat("HH:mm", Locale.US).format( Date())) }
+    LaunchedEffect(currentTime) {
+        while (true) {
+            delay(1000L)
+            currentTime = SimpleDateFormat("HH:mm", Locale.US).format( Date())
+        }
+    }
+    Text(
+        modifier = Modifier.height(80.dp),
+        text = currentTime.normalizePersianDigits(),
+        style = TextStyle(
+            color = Color.White,
+            fontFamily = FontFamily(Font(R.font.iran_sans)),
+            textAlign = TextAlign.Center,
+            fontSize = 60.sp,
+        ),
+
+    )
+}
+
+@Composable
+fun showDate(){
+    val persianDate = PersianDate()
+    val persianDateFormat = PersianDateFormat("d F Y")
+    val date = persianDateFormat.format(persianDate) ?: ""
+    Text(
+        text = date,
+        style = TextStyle(
+            color = Color.White,
+            fontFamily = FontFamily(Font(R.font.iran_sans)),
+            textAlign = TextAlign.Center,
+            fontSize = 22.sp
+        )
+    )
+}
+
+
 
 
 @Composable
@@ -96,7 +140,8 @@ fun SearchEditText(colorText: Color = Color.Black,colorBackground: Color = Color
             placeholder = {
                 Text(
                     text = context.getString(R.string.search_text),
-                    color = Color.Gray,)
+                    color = Color.Gray,
+                )
             }
 
         )

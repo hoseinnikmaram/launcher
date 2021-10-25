@@ -39,6 +39,9 @@ class MainFragment : Fragment() {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Spacer(modifier = Modifier.height(80.dp))
+                    showTime()
+                    showDate()
+                    Spacer(modifier = Modifier.height(20.dp))
                     SearchEditText(context=requireContext()) {
                         hideKeyboardFrom(requireContext(), requireView())
                         actionSearch(it)
