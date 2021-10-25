@@ -48,7 +48,6 @@ class MainFragment : Fragment() {
                     }
 
                     Spacer(modifier = Modifier.weight(1.0f))
-                    showIcon()
                     packageList(packages = packages, onClick = { packageName ->
                         directOpenInstalledApp(
                             packageName = packageName,

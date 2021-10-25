@@ -77,6 +77,7 @@ class MainViewModel(val database: Database) : ViewModel() {
             if (database.getPackages().size != packageModel.size) {
                 database.deletePackages()
                 database.insertPackage(packageModel)
+                getDefaultApps()
                 getInstalledPackage()
             }
 

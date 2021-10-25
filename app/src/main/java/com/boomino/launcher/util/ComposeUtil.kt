@@ -241,7 +241,6 @@ fun packageList(
             content = {
                 items(packages.size) { index ->
                     Box(contentAlignment = Alignment.Center) {
-
                         addItems(
                             packages,
                             index,
