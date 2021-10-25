@@ -20,13 +20,37 @@ class MainViewModel(val database: Database) : ViewModel() {
     private val _responsePackageList = MutableLiveData<List<PackageModel>>()
     val responsePackageList: LiveData<List<PackageModel>>
         get() = _responsePackageList
+    private val _responsePackageDefaultList = MutableLiveData<List<PackageModel>>()
+    val responsePackageDefaultList: LiveData<List<PackageModel>>
+        get() = _responsePackageDefaultList
     init {
         getInstalledPackage()
+        getDefaultApps()
     }
     fun getInstalledPackage() {
         viewModelScope.launch(Dispatchers.IO) {
             val packages = database.getDao().getPackages()
             _responsePackageList.postValue(packages)
+        }
+    }
+    fun getDefaultApps(){
+        val packageDefault = mutableListOf<PackageModel>()
+        viewModelScope.launch(Dispatchers.IO) {
+            val packages = database.getDao().getPackages()
+            packages.forEach { packageModel ->
+                if (packageModel.packageName.contains("zarebin"))
+                    packageDefault.add(packageModel)
+                if (packageModel.packageName.contains("camera"))
+                    packageDefault.add(packageModel)
+                if (packageModel.packageName.contains("messaging"))
+                    packageDefault.add(packageModel)
+                if (packageModel.packageName.contains("dialer"))
+                    packageDefault.add(packageModel)
+              /*  if (packageModel.packageName.contains("chrome"))
+                packageDefault.add(packageModel)*/
+            }
+            val subListSize = if (packageDefault.size < 4) packageDefault.size else 4
+            _responsePackageDefaultList.postValue(packageDefault.subList(0,subListSize))
         }
     }
 

@@ -46,7 +46,9 @@ class MainFragment : Fragment() {
                         hideKeyboardFrom(requireContext(), requireView())
                         actionSearch(it)
                     }
-                    Spacer(modifier = Modifier.height(50.dp))
+
+                    Spacer(modifier = Modifier.weight(1.0f))
+                    showIcon()
                     packageList(packages = packages, onClick = { packageName ->
                         directOpenInstalledApp(
                             packageName = packageName,
@@ -57,8 +59,6 @@ class MainFragment : Fragment() {
                     ) { packageName ->
                         openInformationApp(requireContext(), packageName)
                     }
-                    Spacer(modifier = Modifier.weight(1.0f))
-                    showIcon()
                 }
 
             }
@@ -66,7 +66,6 @@ class MainFragment : Fragment() {
         view.setOnTouchListener(object : OnSwipeTouchListener(requireActivity()) {
             override fun onSwipeTop() {
                 findNavController().navigate(MainFragmentDirections.actionMainFragmentToPackageListFragment())
-
             }
 
             override fun onLongClick() {
@@ -76,13 +75,9 @@ class MainFragment : Fragment() {
             }
         })
 
-        mainViewModel.responsePackageList.observe(viewLifecycleOwner) {
-            val subListSize = if (it.size < 8)
-                it.size
-            else
-                8
+        mainViewModel.responsePackageDefaultList.observe(viewLifecycleOwner) {
             packages.clear()
-            packages.addAll(it.subList(0, subListSize))
+            packages.addAll(it)
         }
         return view
     }
