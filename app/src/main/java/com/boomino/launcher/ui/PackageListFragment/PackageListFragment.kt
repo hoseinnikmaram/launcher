@@ -6,10 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Surface
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
@@ -46,7 +43,7 @@ class PackageListFragment : Fragment() {
                     color = Color.Black,
                 ) {
                     Column(
-                        modifier = Modifier.padding(horizontal = 8.dp),
+                        modifier = Modifier.absolutePadding(left = 8.dp,right = 8.dp,top = 8.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         SearchEditText(

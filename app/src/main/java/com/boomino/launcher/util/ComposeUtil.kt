@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -89,60 +90,61 @@ fun SearchEditText(colorText: Color = Color.Black,colorBackground: Color = Color
         onClear()
     }
     Box(modifier = Modifier.padding(horizontal = 8.dp)){
-        OutlinedTextField(
+        BasicTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(0.dp)
-                .height(55.dp)
-                .defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
+                .height(45.dp)
+                .background(color = colorBackground,RoundedCornerShape(25.dp)),
             value = textFieldState,
             onValueChange = {
                 textFieldState = it
             },
-            colors = TextFieldDefaults.textFieldColors(
-                backgroundColor = colorBackground,
-                focusedIndicatorColor = colorBackground,
-                unfocusedIndicatorColor = colorBackground
-            ),
-
-            leadingIcon = {
-                IconButton(
-                    onClick = {
-                        onClick(textFieldState)
-                    }) {
-                    Icon(
-                        imageVector = Icons.Filled.Search,
-                        contentDescription = null,
-                        tint = Color.Gray
-                    )
-                }
-            },
-            trailingIcon={
-                if (textFieldState.isNotEmpty()){
+            decorationBox = { innerTextField ->
+                Row(modifier= Modifier
+                        .background(
+                            colorBackground,
+                            RoundedCornerShape(25.dp)
+                        )
+                        .padding(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     IconButton(
                         onClick = {
-                            textFieldState = ""
+                            onClick(textFieldState)
                         }) {
                         Icon(
-                            imageVector = Icons.Filled.Close,
+                            imageVector = Icons.Filled.Search,
                             contentDescription = null,
                             tint = Color.Gray
                         )
                     }
+                    Box(Modifier.weight(1f)) {
+                        if (textFieldState.isEmpty()){
+                            Text(
+                            text = context.getString(R.string.search_text),
+                            color = Color.Gray,
+                        )}
+                        innerTextField()
+                    }
+                    if (textFieldState.isNotEmpty()){
+                        IconButton(
+                            onClick = {
+                                textFieldState = ""
+                            }) {
+                            Icon(
+                                imageVector = Icons.Filled.Close,
+                                contentDescription = null,
+                                tint = Color.Gray
+                            )
+                        }
+                    }
                 }
             },
-            shape = RoundedCornerShape(24.dp),
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
             keyboardActions = KeyboardActions(onSearch = { onClick(textFieldState) }),
             textStyle = TextStyle(color = colorText, fontFamily = FontFamily(Font(R.font.iran_sans))),
             maxLines = 1,
             singleLine = true,
-            placeholder = {
-                Text(
-                    text = context.getString(R.string.search_text),
-                    color = Color.Gray,
-                )
-            }
 
         )
 
@@ -221,7 +223,6 @@ fun packageList(
     onClick: (String) -> Unit,
     onLongClick: (String) -> Unit
 ) {
-    var selectedIndex by remember { mutableStateOf(-1) }
     if (isSearch && packages.isNullOrEmpty()){
         Text(
             text = "جستوجو بدون نتیجه است",
@@ -236,6 +237,7 @@ fun packageList(
     else if (packages.isNullOrEmpty()) {
         CircularProgressIndicator(color = Color.White)
     } else {
+        var selectedIndex by remember { mutableStateOf(-1) }
         LazyVerticalGrid(
             cells = GridCells.Fixed(4),
             content = {
@@ -247,7 +249,7 @@ fun packageList(
                             onClick = { onClick(it) },
                             onLongClick = { selectedIndex = it })
                         if (selectedIndex == index)
-                            showDropdown(selected = { selectedIndex = it },
+                            showPopupMenu(selected = { selectedIndex = it },
                                 onClick = { onLongClick(packages[index].packageName) })
                     }
                 }
@@ -275,7 +277,7 @@ private fun addItems(
 }
 
 @Composable
-fun showDropdown(selected: (Int) -> Unit, onClick: () -> Unit) {
+fun showPopupMenu(selected: (Int) -> Unit, onClick: () -> Unit) {
     var expanded by remember { mutableStateOf(true) }
     if (expanded) {
         Popup(
