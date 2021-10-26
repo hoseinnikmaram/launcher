@@ -9,6 +9,7 @@
         <item name="colorAccent">@color/white</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/grey_60</item>
         <item name="colorSecondaryVariant">@color/grey_60</item>
