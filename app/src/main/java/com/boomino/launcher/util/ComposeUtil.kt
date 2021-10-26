@@ -105,7 +105,8 @@ fun SearchEditText(colorText: Color = Color.Black,colorBackground: Color = Color
                             colorBackground,
                             RoundedCornerShape(25.dp)
                         )
-                        .padding(8.dp),
+                        .padding(4.dp)
+                        .height(20.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     IconButton(
@@ -173,6 +174,7 @@ fun showIcon() {
 @Composable
 fun packageItem(
     packageModel: PackageModel,
+    isDefault: Boolean = false,
     onClick: (String) -> Unit,
     onLongClick: (String) -> Unit
 ) {
@@ -202,6 +204,7 @@ fun packageItem(
                 .width(60.dp)
                 .height(60.dp)
         )
+        if (!isDefault){
         Text(
             text = packageModel.label,
             maxLines = 1,
@@ -212,6 +215,7 @@ fun packageItem(
             )
         )
     }
+    }
 
 }
 
@@ -220,6 +224,7 @@ fun packageItem(
 fun packageList(
     isSearch: Boolean = false,
     packages: SnapshotStateList<PackageModel>,
+    isItemDefault: Boolean = false,
     onClick: (String) -> Unit,
     onLongClick: (String) -> Unit
 ) {
@@ -246,6 +251,7 @@ fun packageList(
                         addItems(
                             packages,
                             index,
+                            isItemDefault,
                             onClick = { onClick(it) },
                             onLongClick = { selectedIndex = it })
                         if (selectedIndex == index)
@@ -264,10 +270,11 @@ fun packageList(
 private fun addItems(
     packages: SnapshotStateList<PackageModel>,
     index: Int,
+    isItemDefault: Boolean = false,
     onClick: (String) -> Unit,
     onLongClick: (Int) -> Unit
 ) {
-    packageItem(packageModel = packages[index], {
+    packageItem(packageModel = packages[index],isDefault = isItemDefault, onClick = {
         onClick(it)
     },
         onLongClick = {
