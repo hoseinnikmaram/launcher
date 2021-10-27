@@ -102,3 +102,15 @@ fun String?.normalizePersianDigits(): String {
     }
     return result
 }
+
+fun actionSearch(textSearch: String,context: Context) {
+    val text = textSearch.trim().replace(" ", "%20")
+    if (text.isEmpty())
+        return
+    val browserIntent =
+        Intent(Intent.ACTION_VIEW, Uri.parse(URL_ZAREBIN + text))
+    context.startActivity(browserIntent)
+}
+fun onLongClickPage(context: Context){
+    context.startActivity(Intent(android.provider.Settings.ACTION_SETTINGS))
+}

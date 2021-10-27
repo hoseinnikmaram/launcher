@@ -1,7 +1,9 @@
 package com.boomino.launcher.ui.MainFragment
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.view.View
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
@@ -20,6 +22,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -32,20 +35,62 @@ import androidx.compose.ui.window.Popup
 import coil.compose.rememberImagePainter
 import com.boomino.launcher.R
 import com.boomino.launcher.model.PackageModel
-import com.boomino.launcher.util.normalizePersianDigits
+import com.boomino.launcher.util.*
 import kotlinx.coroutines.delay
 import saman.zamani.persiandate.PersianDate
 import saman.zamani.persiandate.PersianDateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 @Composable
-fun showTime(){
-    var currentTime by remember { mutableStateOf(SimpleDateFormat("HH:mm", Locale.US).format( Date())) }
+fun showMainPageContent(
+    page: Int,
+    packages: SnapshotStateList<PackageModel>,
+    packageManager: PackageManager?,
+    context: Context,
+    view: View
+) {
+    Column(
+        modifier = Modifier.padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = Modifier.height(80.dp))
+        showTime()
+        showDate()
+        Spacer(modifier = Modifier.height(20.dp))
+        SearchEditText(context = context) {
+            hideKeyboardFrom(context, view)
+            actionSearch(it, context)
+        }
+        Spacer(modifier = Modifier.weight(1.0f))
+        packageList(isItemDefault = true, packages = packages, onClick = { packageName ->
+            directOpenInstalledApp(
+                packageName = packageName,
+                packageManager = packageManager,
+                context = context
+            )
+        }
+        ) { packageName ->
+            openInformationApp(context, packageName)
+        }
+    }
+}
+
+@Composable
+fun showTime() {
+    var currentTime by remember {
+        mutableStateOf(
+            SimpleDateFormat(
+                "HH:mm",
+                Locale.US
+            ).format(Date())
+        )
+    }
     LaunchedEffect(currentTime) {
         while (true) {
             delay(1000L)
-            currentTime = SimpleDateFormat("HH:mm", Locale.US).format( Date())
+            currentTime = SimpleDateFormat("HH:mm", Locale.US).format(Date())
         }
     }
     Text(
@@ -58,11 +103,11 @@ fun showTime(){
             fontSize = 60.sp,
         ),
 
-    )
+        )
 }
 
 @Composable
-fun showDate(){
+fun showDate() {
     val persianDate = PersianDate()
     val persianDateFormat = PersianDateFormat("d F Y")
     val date = persianDateFormat.format(persianDate) ?: ""
@@ -78,29 +123,34 @@ fun showDate(){
 }
 
 
-
-
 @Composable
-fun SearchEditText(colorText: Color = Color.Black,colorBackground: Color = Color.White,context: Context,onClear: () -> Unit={} ,onClick: (String) -> Unit) {
+fun SearchEditText(
+    colorText: Color = Color.Black,
+    colorBackground: Color = Color.White,
+    context: Context,
+    onClear: () -> Unit = {},
+    onClick: (String) -> Unit
+) {
 
     var textFieldState by remember {
         mutableStateOf("")
     }
-    if (textFieldState.isEmpty()){
+    if (textFieldState.isEmpty()) {
         onClear()
     }
-    Box(modifier = Modifier.padding(horizontal = 8.dp)){
+    Box(modifier = Modifier.padding(horizontal = 8.dp)) {
         BasicTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(45.dp)
-                .background(color = colorBackground,RoundedCornerShape(25.dp)),
+                .background(color = colorBackground, RoundedCornerShape(25.dp)),
             value = textFieldState,
             onValueChange = {
                 textFieldState = it
             },
             decorationBox = { innerTextField ->
-                Row(modifier= Modifier
+                Row(
+                    modifier = Modifier
                         .background(
                             colorBackground,
                             RoundedCornerShape(25.dp)
@@ -120,14 +170,15 @@ fun SearchEditText(colorText: Color = Color.Black,colorBackground: Color = Color
                         )
                     }
                     Box(Modifier.weight(1f)) {
-                        if (textFieldState.isEmpty()){
+                        if (textFieldState.isEmpty()) {
                             Text(
-                            text = context.getString(R.string.search_text),
-                            color = Color.Gray,
-                        )}
+                                text = context.getString(R.string.search_text),
+                                color = Color.Gray,
+                            )
+                        }
                         innerTextField()
                     }
-                    if (textFieldState.isNotEmpty()){
+                    if (textFieldState.isNotEmpty()) {
                         IconButton(
                             onClick = {
                                 textFieldState = ""
@@ -143,11 +194,14 @@ fun SearchEditText(colorText: Color = Color.Black,colorBackground: Color = Color
             },
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
             keyboardActions = KeyboardActions(onSearch = { onClick(textFieldState) }),
-            textStyle = TextStyle(color = colorText, fontFamily = FontFamily(Font(R.font.iran_sans))),
+            textStyle = TextStyle(
+                color = colorText,
+                fontFamily = FontFamily(Font(R.font.iran_sans))
+            ),
             maxLines = 1,
             singleLine = true,
 
-        )
+            )
 
     }
 
@@ -183,7 +237,6 @@ fun packageItem(
         modifier = Modifier
             .width(60.dp)
             .padding(vertical = 12.dp)
-
             .combinedClickable(
                 onLongClick = { onLongClick(packageModel.packageName) },
                 onClick = { onClick(packageModel.packageName) }),
@@ -204,17 +257,17 @@ fun packageItem(
                 .width(60.dp)
                 .height(60.dp)
         )
-        if (!isDefault){
-        Text(
-            text = packageModel.label,
-            maxLines = 1,
-            style = TextStyle(
-                color = Color.White,
-                fontFamily = FontFamily(Font(R.font.iran_sans)),
-                textAlign = TextAlign.Center
+        if (!isDefault) {
+            Text(
+                text = packageModel.label,
+                maxLines = 1,
+                style = TextStyle(
+                    color = Color.White,
+                    fontFamily = FontFamily(Font(R.font.iran_sans)),
+                    textAlign = TextAlign.Center
+                )
             )
-        )
-    }
+        }
     }
 
 }
@@ -228,7 +281,7 @@ fun packageList(
     onClick: (String) -> Unit,
     onLongClick: (String) -> Unit
 ) {
-    if (isSearch && packages.isNullOrEmpty()){
+    if (isSearch && packages.isNullOrEmpty()) {
         Text(
             text = "جستوجو بدون نتیجه است",
             maxLines = 1,
@@ -238,8 +291,7 @@ fun packageList(
                 textAlign = TextAlign.Center
             )
         )
-    }
-    else if (packages.isNullOrEmpty()) {
+    } else if (packages.isNullOrEmpty()) {
         CircularProgressIndicator(color = Color.White)
     } else {
         var selectedIndex by remember { mutableStateOf(-1) }
@@ -274,7 +326,7 @@ private fun addItems(
     onClick: (String) -> Unit,
     onLongClick: (Int) -> Unit
 ) {
-    packageItem(packageModel = packages[index],isDefault = isItemDefault, onClick = {
+    packageItem(packageModel = packages[index], isDefault = isItemDefault, onClick = {
         onClick(it)
     },
         onLongClick = {
