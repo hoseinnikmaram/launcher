@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.compose.BackHandler
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
@@ -22,6 +25,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -268,11 +272,14 @@ fun packageItem(
                 )
             )
         }
-        if(isShowPopup)
-        showPopupMenu(expanded = isShowPopup,selected = {isShowPopup = false },
-            onClick = { onLongClick(packageModel.packageName) })
+        if (isShowPopup) {
+            BackHandler {
+                isShowPopup = false
+            }
+            showPopupMenu(expanded = isShowPopup, selected = { isShowPopup = false },
+                onClick = { onLongClick(packageModel.packageName) })
+        }
     }
-
 }
 
 @OptIn(ExperimentalFoundationApi::class)
