@@ -232,13 +232,13 @@ fun packageItem(
     onClick: (String) -> Unit,
     onLongClick: (String) -> Unit
 ) {
-
+    var isShowPopup by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier
             .width(60.dp)
             .padding(vertical = 12.dp)
             .combinedClickable(
-                onLongClick = { onLongClick(packageModel.packageName) },
+                onLongClick = { isShowPopup = true },
                 onClick = { onClick(packageModel.packageName) }),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -268,6 +268,9 @@ fun packageItem(
                 )
             )
         }
+        if(isShowPopup)
+        showPopupMenu(expanded = isShowPopup,selected = {isShowPopup = false },
+            onClick = { onLongClick(packageModel.packageName) })
     }
 
 }
@@ -305,10 +308,8 @@ fun packageList(
                             index,
                             isItemDefault,
                             onClick = { onClick(it) },
-                            onLongClick = { selectedIndex = it })
-                        if (selectedIndex == index)
-                            showPopupMenu(selected = { selectedIndex = it },
-                                onClick = { onLongClick(packages[index].packageName) })
+                            onLongClick = { onLongClick(it) })
+
                     }
                 }
             }
@@ -324,20 +325,20 @@ private fun addItems(
     index: Int,
     isItemDefault: Boolean = false,
     onClick: (String) -> Unit,
-    onLongClick: (Int) -> Unit
+    onLongClick: (String) -> Unit
 ) {
     packageItem(packageModel = packages[index], isDefault = isItemDefault, onClick = {
         onClick(it)
     },
         onLongClick = {
-            onLongClick(index)
+            onLongClick(it)
         }
     )
 }
 
 @Composable
-fun showPopupMenu(selected: (Int) -> Unit, onClick: () -> Unit) {
-    var expanded by remember { mutableStateOf(true) }
+fun showPopupMenu(expanded:Boolean = false,selected: (Int) -> Unit, onClick: () -> Unit) {
+    var expanded by remember { mutableStateOf(expanded) }
     if (expanded) {
         Popup(
             alignment = Alignment.TopCenter,
@@ -349,7 +350,7 @@ fun showPopupMenu(selected: (Int) -> Unit, onClick: () -> Unit) {
         {
             Box(
                 Modifier
-                    .size(120.dp, 50.dp)
+                    .size(110.dp, 50.dp)
                     .background(Color.White, RoundedCornerShape(16.dp))
             )
 
@@ -362,9 +363,15 @@ fun showPopupMenu(selected: (Int) -> Unit, onClick: () -> Unit) {
                     Icon(
                         imageVector = Icons.Filled.Info,
                         contentDescription = null,
-                        tint = Color.Gray
+                        tint = Color.Black
                     )
-                    Text(stringResource(R.string.info_text))
+                    Text(stringResource(R.string.info_text),
+                        style = TextStyle(
+                            color = Color.Black,
+                            fontFamily = FontFamily(Font(R.font.iran_sans)),
+                            textAlign = TextAlign.Center
+                        )
+                    )
                 }
             }
 

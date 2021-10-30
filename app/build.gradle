@@ -38,7 +38,7 @@ android {
             renderscriptDebuggable false
             pseudoLocalesEnabled false
             zipAlignEnabled true
-            // signingConfigs signingConfigs.release
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
