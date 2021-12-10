@@ -1,1 +1,1 @@
-implement a launcher project with composite
+implement a launcher project with Jetpack Compose 
