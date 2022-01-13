@@ -57,7 +57,6 @@ class MainViewModel(val database: Database) : ViewModel() {
                 )
             }
             val database = database.getDao()
-            // database.deletePackages()
             database.insertPackage(packageModel)
         }
     }
