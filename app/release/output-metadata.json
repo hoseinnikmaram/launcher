@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.boomino.launcher",
+  "applicationId": "com.nikmaram.launcher",
   "variantName": "release",
   "elements": [
     {
