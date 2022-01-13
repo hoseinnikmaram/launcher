@@ -21,18 +21,21 @@ class MainViewModel(val database: Database) : ViewModel() {
     private var _responsePackageDefaultList = MutableLiveData<List<PackageModel>>()
     val responsePackageDefaultList: LiveData<List<PackageModel>>
         get() = _responsePackageDefaultList
-init {
-    getDefaultApps()
-}
-    fun getInstalledPackage(): LiveData<List<PackageModel>> {
-            return database.getDao().getPackages()
+
+    init {
+        getDefaultApps()
     }
-    private fun getDefaultApps(){
-            val packages = database.getDao().getPackages()
-            packages.observeForever { packages->
-                val subListSize = if (packages.size < 4) packages.size else 4
-                _responsePackageDefaultList .value= packages.toMutableList().subList(0,subListSize)
-            }
+
+    fun getInstalledPackage(): LiveData<List<PackageModel>> {
+        return database.getDao().getPackages()
+    }
+
+    private fun getDefaultApps() {
+        val packages = database.getDao().getPackages()
+        packages.observeForever { packages ->
+            val subListSize = if (packages.size < 4) packages.size else 4
+            _responsePackageDefaultList.value = packages.toMutableList().subList(0, subListSize)
+        }
     }
 
     fun saveToDataBase(activity: Activity) {
@@ -45,22 +48,22 @@ init {
                 val bitmap = it.loadIcon(activity.packageManager).toBitmap()
                 val blob = ByteArrayOutputStream()
                 bitmap.compress(CompressFormat.PNG, 0, blob)
-                    packageModel.add(
-                        PackageModel(
-                            icon = blob.toByteArray(),
-                            label = it.loadLabel(activity.packageManager).toString(),
-                            packageName = it.activityInfo.packageName
-                        )
+                packageModel.add(
+                    PackageModel(
+                        icon = blob.toByteArray(),
+                        label = it.loadLabel(activity.packageManager).toString(),
+                        packageName = it.activityInfo.packageName
                     )
+                )
             }
             val database = database.getDao()
-               // database.deletePackages()
-                database.insertPackage(packageModel)
+            // database.deletePackages()
+            database.insertPackage(packageModel)
         }
     }
 
 
-    fun getInstallPackagesBySearch(label:String): LiveData<List<PackageModel>> {
-          return database.getDao().getPackagesBySearch("%$label%")
+    fun getInstallPackagesBySearch(label: String): LiveData<List<PackageModel>> {
+        return database.getDao().getPackagesBySearch("%$label%")
     }
 }
