@@ -27,27 +27,27 @@ class MainViewModel(val database: Database) : ViewModel() {
         getInstalledPackage()
         getDefaultApps()
     }
-    fun getInstalledPackage() {
+    private fun getInstalledPackage() {
         viewModelScope.launch(Dispatchers.IO) {
             val packages = database.getDao().getPackages()
-            _responsePackageList.postValue(packages)
+            _responsePackageList.value = packages.value
         }
     }
-    fun getDefaultApps(){
+    private fun getDefaultApps(){
         val packageDefault = mutableListOf<PackageModel>()
         viewModelScope.launch(Dispatchers.IO) {
             val packages = database.getDao().getPackages()
-            packages.forEach { packageModel ->
-                if (packageModel.packageName.contains("zarebin"))
-                    packageDefault.add(packageModel)
-                if (packageModel.packageName.contains("camera"))
-                    packageDefault.add(packageModel)
-                if (packageModel.packageName.contains("messaging"))
-                    packageDefault.add(packageModel)
-                if (packageModel.packageName.contains("dialer"))
-                    packageDefault.add(packageModel)
-              /*  if (packageModel.packageName.contains("chrome"))
-                packageDefault.add(packageModel)*/
+            packages.map { packages->
+                packages.forEach { packageModel ->
+                    if (packageModel.packageName.contains("chrome"))
+                        packageDefault.add(packageModel)
+                    if (packageModel.packageName.contains("camera"))
+                        packageDefault.add(packageModel)
+                    if (packageModel.packageName.contains("messaging"))
+                        packageDefault.add(packageModel)
+                    if (packageModel.packageName.contains("dialer"))
+                        packageDefault.add(packageModel)
+                }
             }
             val subListSize = if (packageDefault.size < 4) packageDefault.size else 4
             _responsePackageDefaultList.postValue(packageDefault.subList(0,subListSize))
@@ -64,7 +64,6 @@ class MainViewModel(val database: Database) : ViewModel() {
                 val bitmap = it.loadIcon(activity.packageManager).toBitmap()
                 val blob = ByteArrayOutputStream()
                 bitmap.compress(CompressFormat.PNG, 0, blob)
-                if (!isVpnApplication(it, activity))
                     packageModel.add(
                         PackageModel(
                             icon = blob.toByteArray(),
@@ -74,29 +73,13 @@ class MainViewModel(val database: Database) : ViewModel() {
                     )
             }
             val database = database.getDao()
-            if (database.getPackages().size != packageModel.size) {
-                database.deletePackages()
+               // database.deletePackages()
                 database.insertPackage(packageModel)
                 getDefaultApps()
-                getInstalledPackage()
-            }
-
         }
     }
 
-    fun isVpnApplication(resolveInfo: ResolveInfo, activity: Activity): Boolean {
-        return resolveInfo.activityInfo.packageName.lowercase()
-            .contains("vpn") || resolveInfo.loadLabel(activity.packageManager).toString()
-            .contains("vpn")
-    }
 
-    fun isShowDialog(activity: Activity) {
-        val isShowDialog = defaultCache(activity.applicationContext)[KEY_IS_SHOW_DIALOG, false]
-        if (!isShowDialog!!) {
-            defaultCache(activity.applicationContext)[KEY_IS_SHOW_DIALOG] = true
-            activity.showDialog()
-        }
-    }
     fun getInstallPackagesBySearch(label:String): LiveData<List<PackageModel>> {
           return database.getDao().getPackagesBySearch("%$label%")
     }

@@ -1,18 +1,15 @@
 package com.boomino.launcher.repository.room
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
 import com.boomino.launcher.model.PackageModel
 
 @Dao
 interface PackageDao {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPackage(packageModel: List<PackageModel>)
     @Query("SELECT * FROM package_table")
-    suspend fun getPackages():List<PackageModel>
+    fun getPackages(): LiveData<List<PackageModel>>
     @Transaction
     @Query("DELETE FROM package_table")
     suspend fun deletePackages()

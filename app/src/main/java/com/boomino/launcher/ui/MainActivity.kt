@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainViewModel.isShowDialog(this)
         mainViewModel.saveToDataBase(this)
         val fragmentContainer = supportFragmentManager.findFragmentById(R.id.fragmentContainerView2)!!
         val fragmentContainerManager = fragmentContainer.childFragmentManager
