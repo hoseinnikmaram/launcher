@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 
 
-class MainViewModel(val database: Database) : ViewModel() {
+class MainViewModel(private val database: Database) : ViewModel() {
     private var _responsePackageDefaultList = MutableLiveData<List<PackageModel>>()
     val responsePackageDefaultList: LiveData<List<PackageModel>>
         get() = _responsePackageDefaultList
@@ -31,11 +31,22 @@ class MainViewModel(val database: Database) : ViewModel() {
     }
 
     private fun getDefaultApps() {
-        val packages = database.getDao().getPackages()
-        packages.observeForever { packages ->
-            val subListSize = if (packages.size < 4) packages.size else 4
-            _responsePackageDefaultList.value = packages.toMutableList().subList(0, subListSize)
-        }
+        val packageDefault = mutableSetOf<PackageModel>()
+            val packages = database.getDao().getPackages()
+             packages.observeForever { packages->
+                packages.forEach { packageModel ->
+                    if (packageModel.packageName.contains("chrome"))
+                        packageDefault.add(packageModel)
+                    if (packageModel.packageName.contains("camera"))
+                        packageDefault.add(packageModel)
+                    if (packageModel.packageName.contains("messaging"))
+                        packageDefault.add(packageModel)
+                    if (packageModel.packageName.contains("dialer"))
+                        packageDefault.add(packageModel)
+                }
+                 val subListSize = if (packageDefault.size < 4) packageDefault.size else 4
+                 _responsePackageDefaultList.value = packageDefault.toMutableList().subList(0,subListSize)
+            }
     }
 
     fun saveToDataBase(activity: Activity) {
@@ -57,6 +68,7 @@ class MainViewModel(val database: Database) : ViewModel() {
                 )
             }
             val database = database.getDao()
+            database.deletePackages()
             database.insertPackage(packageModel)
         }
     }
