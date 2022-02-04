@@ -16,4 +16,4 @@
 -dontwarn org.codehaus.mojo.animal_sniffer.*
 -dontwarn okhttp3.internal.platform.ConscryptPlatform
 -dontwarn org.conscrypt.ConscryptHostnameVerifier
--keep class com.boomino.launcher.model.**
+-keep class com.nikmaram.launcher.model.**

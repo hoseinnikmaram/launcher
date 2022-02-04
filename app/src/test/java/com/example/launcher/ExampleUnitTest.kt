@@ -1,4 +1,4 @@
-package com.boomino.launcher
+package com.nikmaram.launcher
 
 import org.junit.Test
 
